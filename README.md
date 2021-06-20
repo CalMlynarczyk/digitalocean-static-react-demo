@@ -1,3 +1,9 @@
+# digitalocean-static-react-demo
+
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://gitlab.com/CalMlynarczyk/digitalocean-static-react-demo/-/tree/master)
+
+Build and deploy a React single-page application to a Digital Ocean App Platform Static Site component.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
