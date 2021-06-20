@@ -9,7 +9,7 @@ spec:
         repo: CalMlynarczyk/digitalocean-static-react-demo
       name: static-react-demo
       build_command: npm run build
-      source_dir: src
+      source_dir: /
       output_dir: build
       routes:
         - path: /
