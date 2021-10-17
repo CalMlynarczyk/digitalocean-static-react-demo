@@ -1,11 +1,13 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
-import LoginButton from "./Login";
+import Login from "./Login";
 import "./App.css";
 
 function App() {
   const [message, setMessage] = useState(0);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const { getAccessTokenSilently } = useAuth0();
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
@@ -14,6 +16,18 @@ function App() {
       .then((data) => {
         setMessage(data);
       });
+
+    getAccessTokenSilently().then((token) =>
+      fetch("http://localhost:5000/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          setUser(data);
+        }),
+    );
   });
 
   return (
@@ -23,7 +37,6 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <p>{message}</p>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -32,23 +45,9 @@ function App() {
         >
           Learn React
         </a>
-        <LoginButton />
-        <button
-          type="button"
-          onClick={() => {
-            fetch("http://localhost:5000/auth/login", {
-              method: "POST",
-              body: { username: "john", password: "changeme" },
-            })
-              .then((response) => response.text())
-              .then((data) => {
-                setLoggedIn(true);
-              });
-          }}
-        >
-          Log In
-        </button>
-        {loggedIn ? <h3>Logged In</h3> : null}
+        <p>{message}</p>
+        <Login />
+        {user ? <p>{user}</p> : null}
       </header>
     </div>
   );
