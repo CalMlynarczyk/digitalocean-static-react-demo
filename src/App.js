@@ -4,16 +4,16 @@ import './App.css';
 
 function App() {
   const [message, setMessage] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    fetch('https://static-react-demo-wnbhw.ondigitalocean.app/digitalocean-nodejs-demo')
+    fetch('http://localhost:5000')
       .then(response => response.text())
       .then(data => {
         setMessage(data);
       });
   });
-
   
   return (
     <div className="App">
@@ -31,6 +31,18 @@ function App() {
         >
           Learn React
         </a>
+        {loggedIn ? <h3>Logged In</h3> : null}
+        <button type="button" onClick={() => {
+          fetch('http://localhost:5000/auth/login', {
+            method: 'POST',
+            body: {username: "john", password: "changeme"},
+          })
+            .then(response => 
+              response.text())
+            .then(data => {
+              setLoggedIn(true);
+            });
+        }}>Log In</button>
       </header>
     </div>
   );
