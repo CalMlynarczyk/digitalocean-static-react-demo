@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
+import LoginButton from "./Login";
 import "./App.css";
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
         >
           Learn React
         </a>
-        {loggedIn ? <h3>Logged In</h3> : null}
+        <LoginButton />
         <button
           type="button"
           onClick={() => {
@@ -47,6 +48,7 @@ function App() {
         >
           Log In
         </button>
+        {loggedIn ? <h3>Logged In</h3> : null}
       </header>
     </div>
   );
