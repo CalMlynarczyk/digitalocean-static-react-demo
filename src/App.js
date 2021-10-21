@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   const [message, setMessage] = useState(0);
   const [user, setUser] = useState(null);
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
@@ -16,19 +16,23 @@ function App() {
       .then((data) => {
         setMessage(data);
       });
+  }, []);
 
-    getAccessTokenSilently().then((token) =>
-      fetch("http://localhost:5000/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.text())
-        .then((data) => {
-          setUser(data);
-        }),
-    );
-  });
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAccessTokenSilently().then((token) =>
+        fetch("http://localhost:5000/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            setUser(data);
+          }),
+      );
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="App">
