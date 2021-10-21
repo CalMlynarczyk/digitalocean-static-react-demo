@@ -13,7 +13,7 @@ const Login = () => {
         Log Out
       </button>
       {isLoading ? <p>Loading ...</p> : null}
-      {isAuthenticated ? (
+      {isAuthenticated && user ? (
         <p>
           Logged in as <strong>{user.email}</strong>
         </p>

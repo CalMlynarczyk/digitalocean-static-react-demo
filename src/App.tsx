@@ -5,8 +5,8 @@ import Login from "./Login";
 import "./App.css";
 
 function App() {
-  const [message, setMessage] = useState(0);
-  const [user, setUser] = useState(null);
+  const [message, setMessage] = useState("0");
+  const [user, setUser] = useState<string | null>(null);
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   // Similar to componentDidMount and componentDidUpdate:
@@ -32,7 +32,7 @@ function App() {
           }),
       );
     }
-  }, [isAuthenticated]);
+  }, [getAccessTokenSilently, isAuthenticated]);
 
   return (
     <div className="App">
