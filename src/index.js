@@ -1,9 +1,21 @@
 import { Auth0Provider } from "@auth0/auth0-react";
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
+Sentry.init({
+  dsn: "https://192b88f2030a44e095358b0ec6cf560c@o1046123.ingest.sentry.io/6022002",
+  integrations: [new Integrations.BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
 
 ReactDOM.render(
   <React.StrictMode>
