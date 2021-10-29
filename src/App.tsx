@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   const [message, setMessage] = useState("0");
   const [user, setUser] = useState<string | null>(null);
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently, loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
@@ -34,27 +34,34 @@ function App() {
     }
   }, [getAccessTokenSilently, isAuthenticated]);
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>{message}</p>
-        <Login />
-        {user ? <p>{user}</p> : null}
-      </header>
-    </div>
-  );
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  } else if (!isAuthenticated) {
+    loginWithRedirect();
+    return null;
+  } else {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+          <p>{message}</p>
+          <Login />
+          {user ? <p>{user}</p> : null}
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
