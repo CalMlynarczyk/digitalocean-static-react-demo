@@ -14,7 +14,7 @@ function App() {
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    fetch("http://localhost:5000")
+    fetch(`${process.env.REACT_APP_API_ROOT}`)
       .then((response) => response.text())
       .then((data) => {
         setMessage(data);
@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     if (isAuthenticated) {
       getAccessTokenSilently().then((token) =>
-        fetch("http://localhost:5000/user", {
+        fetch(`${process.env.REACT_APP_API_ROOT}/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
