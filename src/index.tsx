@@ -3,9 +3,9 @@ import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import "./index.scss";
 
 Sentry.init({
   dsn: "https://192b88f2030a44e095358b0ec6cf560c@o1046123.ingest.sentry.io/6022002",
